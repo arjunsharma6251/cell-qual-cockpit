@@ -1,0 +1,38 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      # cache-bust assets with the commit SHA so a cached stylesheet can
+      # never be paired with newer HTML (stale skew renders as broken layout)
+      - run: |
+          V="${GITHUB_SHA::8}"
+          sed -i "s|href=\"style.css\"|href=\"style.css?v=$V\"|; s|src=\"app.js\"|src=\"app.js?v=$V\"|" app/static/index.html
+          sed -i "s|fetch(\"cockpit_data.json\")|fetch(\"cockpit_data.json?v=$V\")|" app/static/app.js
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/static
+      - id: deployment
+        uses: actions/deploy-pages@v4

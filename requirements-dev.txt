@@ -1,0 +1,2 @@
+pytest
+playwright  # screenshot/smoke tooling for the cockpit UI

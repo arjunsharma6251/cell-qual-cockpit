@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hectocycle — cell qualification cockpit</title>
+<meta name="description" content="Tells you which battery cells will pass their life test — from the first 100 cycles, with honest confidence. Calibrated early calls, Venn-ABERS intervals, and chemistry-aware degradation diagnostics.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hectocycle — call battery qualification months early">
+<meta property="og:description" content="Reads the first 100 cycles of a cell's life test and tells you which cells you can already call — with honest, calibrated confidence. Try it on your own CSV, in the browser.">
+<meta property="og:url" content="https://hectocycle.com/">
+<meta property="og:image" content="https://hectocycle.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hectocycle — call battery qualification months early">
+<meta name="twitter:description" content="Calibrated early pass/fail calls from the first 100 cycles, honest uncertainty intervals, and degradation diagnostics. Try it on your own cell CSV.">
+<meta name="twitter:image" content="https://hectocycle.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='10' y='4' width='12' height='24' rx='3' fill='%23b0653a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-title">
+    <div class="masthead-brand">
+      <span class="masthead-mark"></span>
+      <h1>HECTOCYCLE</h1>
+    </div>
+    <span class="masthead-tagline">Tells you which battery cells will pass their life test — from the first 100 cycles, with honest confidence.</span>
+    <span class="masthead-rev">cell qualification cockpit · Severson · Sandia · Oxford</span>
+  </div>
+  <div class="masthead-right">
+    <button class="help-btn" id="help-btn" title="What is Hectocycle?" aria-label="Show introduction">?</button>
+    <button class="theme-toggle" id="theme-toggle" title="Theme: system" aria-label="Cycle color theme">◐</button>
+    <div class="masthead-tally" id="tally"><!-- filled by app.js --></div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="fleet" role="tab" aria-selected="true">FLEET</button>
+  <button class="tab" data-tab="gates" role="tab" aria-selected="false">GATES</button>
+  <button class="tab" data-tab="science" role="tab" aria-selected="false">SCIENCE</button>
+  <button class="tab" data-tab="try" role="tab" aria-selected="false">TRY IT</button>
+  <div class="fleet-switch" id="fleet-switch">
+    <button class="seg active" data-fleet="qual">QUALIFICATION <span class="seg-sub">Severson LFP · 124</span></button>
+    <button class="seg" data-fleet="diag">DIAGNOSTICS <span class="seg-sub">SNL NCA/NMC/LFP · 61</span></button>
+  </div>
+  <div class="filters" id="filters"></div>
+</nav>
+
+<main class="layout">
+  <section class="pane" id="pane-fleet" role="tabpanel">
+    <p class="fleet-caption" id="fleet-caption"></p>
+    <div class="queue-cards" id="queue-cards"></div>
+    <div class="table-wrap"><table class="fleet" id="fleet-table"></table></div>
+  </section>
+
+  <section class="pane hidden" id="pane-gates" role="tabpanel"></section>
+
+  <section class="pane hidden" id="pane-science" role="tabpanel"></section>
+
+  <section class="pane hidden" id="pane-try" role="tabpanel"></section>
+
+  <aside class="inspector" id="inspector" aria-live="polite">
+    <div class="inspector-empty">
+      <div class="inspector-empty-mark">◫</div>
+      <p>Select a cell to open its record.</p>
+    </div>
+  </aside>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
